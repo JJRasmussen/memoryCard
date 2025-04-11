@@ -1,9 +1,9 @@
 
-export default function Card(){
+export default function Card(props){
 
     return (
         <button className="card">
-            howdy
+            {props.cardName}
         </button>
     )
 }
