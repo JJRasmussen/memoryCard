@@ -1,12 +1,15 @@
-# React + Vite
+# React practice project in "The Odin Project"
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## What is the project about?
+Creating a memory game where a point is scored when a card, that has not previously been pressed, is pressed. When a card that has previously been pressed is pressed the game is over.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## The finished project will consist of:
+- A number of card rendered in a random order.
+- Each card containing an image and some text.
+- The image should be aquired from an API.
+- a scoreboard that show the users best results.
+- Pressing an image should trigger:   
+    - checking if the image has already been pressed.
+    - ending of the game if it has been pressed and logging their result to the scoreboard.
+    - a rerender with new randomized ordering of the cards.
+    - tracking of the pressed image in state.
