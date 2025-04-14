@@ -13,3 +13,21 @@ Creating a memory game where a point is scored when a card, that has not previou
     - ending of the game if it has been pressed and logging their result to the scoreboard.
     - a rerender with new randomized ordering of the cards.
     - tracking of the pressed image in state.
+
+## Perenual API as a source of text and images
+To give the project a personal touch the cards should contain plant names and images. That way there is a bit of learning happening along with the remembering.
+
+I use the perenual API which can return 30 unique plants in each API call.
+
+### Below is a list of problems and solutions I had working with the API 
+
+#### In the free tier I have access to 100 calls/day. If I run out of calls the game cannot be played.
+Solution: 
+1. A sample response is stored directly in the src that be accessed if an API call returns an error.
+
+#### Problem: the default_image property of some plants is null.
+solution: 
+1. I filter the plants that are returned to ensure valid entries.
+2. If there are too few valid plants I append valid plants from the backup plant list until a sufficient number of plants has been reached.
+
+
