@@ -19,7 +19,9 @@ To give the project a personal touch the cards should contain plant names and im
 
 I use the perenual API which can return 30 unique plants in each API call.
 
-### Below is a list of problems and solutions I had working with the API 
+## Below is a list of issues I encountered in creating the website along with my solutions.
+
+### Perenual
 
 #### In the free tier I have access to 100 calls/day. If I run out of calls the game cannot be played.
 Solution: 
@@ -30,4 +32,9 @@ solution:
 1. I filter the plants that are returned to ensure valid entries.
 2. If there are too few valid plants I append valid plants from the backup plant list until a sufficient number of plants has been reached.
 
+### CSS
 
+#### Showing the name of the plants in a proper way indepedently of the background image and length of the name:
+1. Using position absolute I centered the text at the bottom of the image. This way the text simply starts higher on the image for long names.
+2. using -webkit-text-stroke-width and -webkit-text-stroke-color the black text gets a white outline ensuring easier readability.
+3. using mix-blend-mode on the image again increases readability.

@@ -40,14 +40,12 @@ function App() {
     if (validPlants.length > 25){
       validPlants.splice(20, (validPlants.length - 20))
     }
-    //if validPlants is too short
+    //if validPlants is too short use plants from backup plant list
     for (let i = 0; validPlants.length < 20 ; i++){
       validPlants.push(
         backupPlantList.data[i]
       )
     }
-    //update plantList with only valid plants
-    console.log(validPlants)
   }
 
   let cards = []
@@ -63,12 +61,9 @@ function App() {
   }
   
   return (
-    <>
+    <section className="cardContainer">
       {cards}
-      {/*cards*/}
-      <h1>API Data</h1>
-      <pre>{JSON.stringify(plantList, null, 2)}</pre>
-    </>
+    </section>
     
 
   )

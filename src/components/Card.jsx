@@ -11,7 +11,7 @@ export default function Card(props){
 
             }}
         >
-            {props.cardName}
+            <p>{props.cardName}</p>
         </button>
     )
 }

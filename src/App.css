@@ -1,4 +1,47 @@
+* {
+  margin:0px;
+}
+
+body{
+  width: 100vw;
+  height: 100vh;
+  background-color: #fbe3e8
+}
+
+.cardContainer{
+  margin: 40px;
+  display: grid;
+  grid-template-columns: repeat(5, 280px);
+  grid-template-rows: repeat(4, 160px);
+
+  justify-self: center;
+  align-self: center;
+  gap: 22px;
+
+}
+
 .card{
-  height: 220px;
-  width: 280px;
+  position: relative;
+  border-radius: 8px;
+  border:none;
+  
+  color: rgb(227, 241, 100);
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+  font-size: 2.1rem;
+  font-weight: 800;
+  text-overflow: ellipsis;
+
+  mix-blend-mode: multiply;
+}
+
+.card > p{
+  position: absolute;
+  width: 80%;
+
+  bottom: 8px;
+  left:0;
+  right:0;
+  margin-left: auto;
+  margin-right: auto;
 }
