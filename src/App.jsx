@@ -12,17 +12,19 @@ function App() {
   useEffect(() => {
     async function fetchPlantList(){
       try{
-        const response = await axios.get(`https://perenual.com/api/v2/species-list?key=sk-36Yw67f91e93650cf9731`);
-        setPlantList(response.data)
+        //uncomment to access the perenual database
+        //const response = await axios.get(`https://perenual.com/api/v2/species-list?key=sk-36Yw67f91e936cf971`);
+        //setPlantList(response.data)
+        setPlantList(backupPlantList)
       } catch (error){
         //if there are no more free uses of the API a backup list is used.
         setPlantList(backupPlantList)
         console.log("Error fetching plant data", error)
       }
     };
+    fetchPlantList()
   },[]);
-
-
+  
   const nrOfCards = 8
   function cardArrayCreation(){
     for (let i = 0; i < nrOfCards; i++){
