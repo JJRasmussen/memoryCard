@@ -10,7 +10,8 @@ import backupPlantList from './backupPlantList.js'
 function App() {
   const [plantList, setPlantList] = useState(null)
   const [pickedCards, setPickedCards] = useState([])
-
+  console.log("pickedCards: ")
+  console.log(pickedCards)
   //Get plants from Perenual 
   useEffect(() => {
     const randomPage = Math.floor(Math.random()*75)
@@ -53,7 +54,14 @@ function App() {
     }
   }
 
-
+  function cardPressed(id){
+    console.log("id: " + id)
+    setPickedCards(prevPicked => ([
+      ...prevPicked,
+      id
+    ]
+    ))
+  }
 
 
   //Create a Card component for each plant
