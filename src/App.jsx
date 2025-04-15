@@ -9,6 +9,9 @@ import backupPlantList from './backupPlantList.js'
 
 function App() {
   const [plantList, setPlantList] = useState(null)
+  const [pickedCards, setPickedCards] = useState([])
+
+  //Get plants from Perenual 
   useEffect(() => {
     const randomPage = Math.floor(Math.random()*75)
     async function fetchPlantList(){
@@ -27,11 +30,10 @@ function App() {
     fetchPlantList()
   },[]);
 
-
+  const numberOfCards = 20
+  //Sanitize input and ensure 20 valid plants 
   let validPlants = []
   if(plantList != null){
-    console.log("plantList")
-    console.log(plantList)
     validPlants = plantList.filter((plant) => 
       (plant.id != null && 
         plant.common_name != null &&
@@ -40,34 +42,40 @@ function App() {
       )
     )
     //if validPlants is too long
-    if (validPlants.length > 20){
-      validPlants.splice(20, (validPlants.length - 20))
+    if (validPlants.length > numberOfCards){
+      validPlants.splice(numberOfCards, (validPlants.length - numberOfCards))
     }
     //if validPlants is too short use plants from backup plant list
-    for (let i = 0; validPlants.length < 20 ; i++){
+    for (let i = 0; validPlants.length < numberOfCards ; i++){
       validPlants.push(
         backupPlantList.data[i]
       )
     }
   }
-  console.log("validPlants.length")
-  console.log(validPlants.length)
+
+
+
+
+  //Create a Card component for each plant
   let cards = []
   if(plantList != null){
     validPlants.map((plant) => {
-      console.log(plant)
       cards.push(
         <Card 
+            key={plant.id} 
             id={plant.id} 
             cardName={plant.common_name}
             imageUrl={plant.default_image.small_url}
+            handleClick={() => cardPressed(plant.id)}
         />
     )})
   }
+
+
   
   return (
     <section className="cardContainer">
-      {cards}
+      {plantList != null && cards}
     </section>
     
 

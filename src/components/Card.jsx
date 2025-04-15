@@ -1,10 +1,9 @@
 
 export default function Card(props){
-
     return (
         <button 
             className='card' 
-            key={props.id} 
+            onClick={props.handleClick}
             style={{
                 backgroundImage: `url(${props.imageUrl})`,
                 backgroundSize: 'cover',
