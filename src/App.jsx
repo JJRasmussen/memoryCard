@@ -18,59 +18,63 @@ function App() {
   //Get plants from Perenual 
   useEffect(() => {
     const randomPage = Math.floor(Math.random()*75)
+    let receivedPlants = []
+    let validPlants = []
+    let numberOfCards = 20
     async function fetchPlantList(){
       try{
         //uncomment to access the perenual database
         const response = await axios.get(`https://perenual.com/api/v2/species-list?key=sk-36Yw67f91e93650cf9731&page=${randomPage}`);
-        setPlantList(response.data.data)
-        //setPlantList(backupPlantList.data)
-        
+        receivedPlants = response.data.data
       } catch (error){
         //if there are no more free uses of the API a backup list is used.
-        setPlantList(backupPlantList.data)
+        receivedPlants = backupPlantList.data
         console.log("Error fetching plant data", error)
+      } finally {
+        //Sanitize input and ensure 20 valid plants 
+        validPlants = receivedPlants.filter((plant) => 
+          (plant.id != null && 
+            plant.common_name != null &&
+            plant.default_image != null &&
+            plant.default_image.small_url != null
+          )
+        )
+        //if validPlants is too long
+        if (validPlants.length > numberOfCards){
+          validPlants.splice(numberOfCards, (validPlants.length - numberOfCards))
+        }
+        //if validPlants is too short use plants from backup plant list
+        for (let i = 0; validPlants.length < numberOfCards ; i++){
+          validPlants.push(backupPlantList.data[i])
+        }
+        setPlantList(validPlants)
       }
     };
     fetchPlantList()
   },[]);
-  const numberOfCards = 20
-  //Sanitize input and ensure 20 valid plants 
-  let validPlants = []
-  if(plantList != null){
-    validPlants = plantList.filter((plant) => 
-      (plant.id != null && 
-        plant.common_name != null &&
-        plant.default_image != null &&
-        plant.default_image.small_url != null
-      )
-    )
-    //if validPlants is too long
-    if (validPlants.length > numberOfCards){
-      validPlants.splice(numberOfCards, (validPlants.length - numberOfCards))
-    }
-    //if validPlants is too short use plants from backup plant list
-    for (let i = 0; validPlants.length < numberOfCards ; i++){
-      validPlants.push(
-        backupPlantList.data[i]
-      )
-    }
-  }
+
   //
   function cardPressed(id){
     if(gameState.isGameOver){
       return
     }
-    if (pickedCards.includes(id) || pickedCards.length === plantList.length){
-      gameOver()
-    } else {
-      setPickedCards(prevPicked => ([...prevPicked, id]))
+    if (pickedCards.includes(id)) {
+      gameOver(false)
     }
-    randomizeCards()
+    if (!pickedCards.includes(id)){
+      setPickedCards(prevPicked => ([...prevPicked, id]))
+      //React does not update pickedCards until the next render, so plantList.length - 1 is tested.
+      if ( pickedCards.length === plantList.length -1){
+        gameOver(true)
+      } else {
+        randomizeCards();  
+      }
+    }
   }
   //Create a Card component for each plant
   let cards = []
   if(plantList != null){
-    validPlants.map((plant) => {
+    plantList.map((plant) => {
       cards.push(
         <Card 
             key={plant.id} 
@@ -81,8 +85,9 @@ function App() {
         />
     )})
   }
-  function gameOver(){
-    if(pickedCards.length === plantList.length){
+  
+  function gameOver(gameWon){
+    if(gameWon === true){
       setGameState({
         isGameOver: true,
         isGameWon: true,
@@ -93,8 +98,8 @@ function App() {
         isGameWon: false,
       })
     }
-    console.log("isGameWon is: " + isGameWon)
   }
+  
   function newGame(){
     setPickedCards([])
     setGameState({
@@ -102,7 +107,6 @@ function App() {
       isGameWon: false,
     })
   }
-
   //Fisher-Yates shuffle
   function shuffleArray(array){
     let temp
@@ -114,7 +118,6 @@ function App() {
     }
     return array
   }
-  
   function randomizeCards(){
     setPlantList(prevPlantList => (
       shuffleArray(prevPlantList))
@@ -152,9 +155,8 @@ function App() {
           <h2>You have {pickedCards.length} points</h2>
         </>
       )
+    }
   }
-  }
-
   return (
     <main>
       <header>
