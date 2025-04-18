@@ -54,15 +54,40 @@ function App() {
     }
   }
 
+  //
   function cardPressed(id){
-    console.log("id: " + id)
-    setPickedCards(prevPicked => ([
-      ...prevPicked,
-      id
-    ]
+    setPickedCards(prevPicked => (
+      prevPicked.includes(id) ? 
+      gameOver() :
+      [...prevPicked, id]
     ))
+    randomizeCards()
   }
 
+  function gameOver(){
+    console.log("GAME OVER")
+    console.log("You got " + pickedCards.length + " points!")
+
+    setPickedCards([])
+  }
+
+  //Fisher-Yates shuffle
+  function shuffleArray(array){
+    let temp
+    for (let i = array.length - 1; i > 0; i--){
+      let random = Math.floor(Math.random() * (i + 1))
+      temp = array[i]
+      array[i] = array[random]
+      array[random] = temp
+    }
+    return array
+  }
+  
+  function randomizeCards(){
+    setPlantList(prevPlantList => (
+      shuffleArray(prevPlantList))
+    )
+  }
 
   //Create a Card component for each plant
   let cards = []
@@ -79,14 +104,10 @@ function App() {
     )})
   }
 
-
-  
   return (
     <section className="cardContainer">
       {plantList != null && cards}
     </section>
-    
-
   )
 }
 
