@@ -30,7 +30,7 @@ header > h1 {
   flex-direction: column;
   align-items: center;
   width: 800px;
-  height: 180px;
+  height: 120px;
   gap: 12px;
   padding:22px;
   align-items: center;
@@ -39,7 +39,7 @@ header > h1 {
 }
 
 .gameStatus > p {
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   text-align: center;
   text-wrap: balance;
 }
