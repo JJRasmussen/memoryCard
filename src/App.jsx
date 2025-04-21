@@ -31,7 +31,7 @@ function App() {
         receivedPlants = backupPlantList.data
         console.log("Error fetching plant data", error)
       } finally {
-        //Sanitize input and ensure 20 valid plants 
+        //Sanitize input and ensure valid plants 
         validPlants = receivedPlants.filter((plant) => 
           (plant.id != null && 
             plant.common_name != null &&
