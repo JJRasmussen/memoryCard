@@ -146,12 +146,22 @@ function App() {
     if(pickedCards.length === 0){
       return(
         <>
+          <p>
+            Each time you press a new card you gain a point. 
+            After a card is pressed the placement will be shuffled.
+            If you press a card that had already been pressed the game is over.
+          </p>
           <h2>Pick your first card</h2>
         </>
       )
     } else {
       return(
         <>
+          <p>
+            Each time you press a new card you gain a point. 
+            After a card is pressed the placement will be shuffled.
+            If you press a card that had already been pressed the game is over.
+          </p>
           <h2>You have {pickedCards.length} points</h2>
         </>
       )
@@ -161,18 +171,17 @@ function App() {
     <main>
       <header>
         <h1>Memory game</h1>
-        <div>
-          <p>
-            Each time you press a new card you gain a point. 
-            After a card is pressed the placement will be shuffled.
-            If you press a card that had already been pressed the game is over.
-          </p>
+        <div className="gameStatus">
           {renderGameStatus()}
         </div>
       </header>
       <section className="cardContainer">
         {plantList != null && cards}
       </section>
+      <p className="disclaimer">
+        NOTE: the Perenual API has many duplicate plants in its database so there is a risk of repeating plants in the display.
+        If I were to remake the game I would use an API with more fetch options to ensure unique results, like the pokemon API.
+      </p>
     </main>
   )
 }
